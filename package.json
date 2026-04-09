@@ -6,11 +6,14 @@
   "type": "module",
   "scripts": {
     "test": "playwright test",
+    "test:chromium": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "test:webkit": "playwright test --project=webkit",
     "test:smoke": "playwright test tests/smoke",
     "test:regression": "playwright test tests/regression",
     "test:headed": "playwright test --headed",
-    "report:playwright": "playwright show-report",
-    "report:allure": "allure serve allure-results"
+    "report:playwright": "npx playwright show-report",
+    "report:allure": "npx allure serve allure-results"
   },
   "keywords": [],
   "author": "",
