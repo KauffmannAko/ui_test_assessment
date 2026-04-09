@@ -4,7 +4,14 @@
   "description": "",
   "main": "index.js",
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "test": "playwright test",
+    "test:smoke": "playwright test tests/smoke",
+    "test:regression": "playwright test tests/regression",
+    "test:headed": "playwright test --headed",
+    "report:playwright": "playwright show-report",
+    "report:allure": "allure serve allure-results"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
