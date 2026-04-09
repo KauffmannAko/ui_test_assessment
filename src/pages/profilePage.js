@@ -29,8 +29,55 @@ class ProfilePage {
     await this.getLocator(selectors.confirmPassword).fill(data.confirmPassword);
   }
 
+  async fillOptionalFields(data = {}) {
+    if (data.dob) {
+      await this.getLocator(selectors.dob).fill(data.dob);
+    }
+
+    if (data.phone) {
+      await this.getLocator(selectors.phone).fill(data.phone);
+    }
+
+    if (data.address) {
+      await this.getLocator(selectors.address).fill(data.address);
+    }
+
+    if (data.linkedIn) {
+      await this.getLocator(selectors.linkedIn).fill(data.linkedIn);
+    }
+
+    if (data.github) {
+      await this.getLocator(selectors.github).fill(data.github);
+    }
+  }
+
   async submit() {
     await this.getLocator(selectors.submitButton).click();
+  }
+
+  async submitAndCaptureDialog() {
+    const dialogMessagePromise = new Promise((resolve) => {
+      this.page.once('dialog', async (dialog) => {
+        const message = dialog.message();
+        await dialog.dismiss();
+        resolve(message);
+      });
+    });
+
+    await this.submit();
+    return dialogMessagePromise;
+  }
+
+  successMessage() {
+    return this.page.locator('p.success');
+  }
+
+  async getNativeValidationMessage(selector) {
+    return this.getLocator(selector).evaluate((element) => element.validationMessage);
+  }
+
+  async isFieldValid(selector) {
+    return this.getLocator(selector).evaluate((element) => element.checkValidity());
   }
 }
 

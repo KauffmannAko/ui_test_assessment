@@ -9,8 +9,9 @@ test.describe('Profile form smoke', () => {
 
     await profilePage.goto();
     await profilePage.fillMandatoryFields(validUser);
+    await profilePage.fillOptionalFields({ linkedIn: validUser.linkedIn });
     await profilePage.submit();
 
-    await expect(page.getByText('Profile submitted successfully!')).toBeVisible();
+    await expect(profilePage.successMessage()).toHaveText('Success!');
   });
 });
